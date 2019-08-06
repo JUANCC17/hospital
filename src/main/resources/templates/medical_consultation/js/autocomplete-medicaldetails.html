@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<script type="text/javascript" th:fragment="javascript">
+		$(document).ready(function() {
+			$('#agregarItem').click(function() {
+				/* select : function(event, ui) { */
+									
+									
+					var line = $("#templateItemsMedicalConsultation").html();
+					
+/* 					line = line.replace(/{ID}/g, ui.item.value);
+					line = line.replace(/{NAME}/g, ui.item.label);
+					line = line.replace(/{PRICE}/g, ui.item.price); */
+					
+					$("#loadItemMedicalConsultations tbody").append(line);
+
+					return false;
+				/* } */
+			});
+		});
+		
+
+	</script>
+</body>
+</html>

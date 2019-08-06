@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<table th:fragment="itemsMedicalConsultation" class="d-none">
+
+		<tbody id="templateItemsMedicalConsultation">
+			<tr id="row_{ID}">
+				<td class="d-none"><input type="hidden" value="{ID}"
+					name="item_id[]" /></td>
+				<!-- <td><input type="text" value="" name="diagnostic[]"
+					id="diagnostic_{ID}" class="form-control col-sm-6"/></td>
+				<td><input type="text" value="" name="treatment[]"
+				id="treatment_{ID}" class="form-control col-sm-6"/></td>-->
+				<td> 
+				<div class="form-group">
+				  <textarea class="form-control rounded-0" id="diagnostic_{ID}" rows="2"></textarea>
+				</div>
+				</td>
+				<td> 
+				<div class="form-group">
+				  <textarea class="form-control rounded-0" id="treatment_{ID}" rows="2"></textarea>
+				</div>
+				</td>
+				
+				<td><a href="#" class="btn btn-danger btn-xs" onclick="itemsHelper.deleteLineInvoice({ID});">x</a></td>
+			</tr>
+
+		</tbody>
+
+	</table>
+
+</body>
+</html>

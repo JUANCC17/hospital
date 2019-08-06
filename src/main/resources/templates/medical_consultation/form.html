@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		<form th:action="@{/medical_consultations/save/}" th:object="${medical_consultation}"
+			method="post">
+			<div class="card ">
+
+
+				<div class="card-header text-white bg-dark" th:text="${title}"></div>
+				<div class="card-body">
+					<h4 class="card-title">
+						<a class="btn btn-light btn-xs"
+							th:href="@{'/medical_consultations/list/'}"
+							th:text="'&laquo; Regresar'"></a>
+					</h4>
+
+
+
+					<div class="form-group row">
+						<label for="customer" class="col-sm-2 col-form-label"
+							th:text="'Paciente'"></label>
+						<div class="col-sm-6">
+							<input name="patient"
+								th:value="${medical_consultation.patient.firstName} + ' ' + ${medical_consultation.patient.lastName}"
+								class="form-control" disabled='disabled' />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="" class="col-sm-2 col-form-label">Doctor</label>
+						<div class="col-sm-6">
+							 <select class="browser-default custom-select" th:field="*{doctor.id}">
+		 						<!--  <option th:value="" th:data-hidden="true"></option> -->
+					            <option th:each="doctor: ${doctors}"
+							              th:value="${doctor.id}" 
+							              th:text="${doctor.firstName+' '+doctor.lastName}"
+							              
+							               
+					              />
+					            
+					          </select>
+						</div>
+					</div>
+					
+				 
+
+				</div>
+			</div>
+
+			<div class="card bg-light">
+				<div class="card-header text-white bg-dark">
+				
+				<button id="agregarItem" type="button" class="btn btn-secondary btn-sm">+</button> Detalle</div>
+				<div class="card-body">
+					<table th:replace="medical_consultation/template-items :: itemsMedicalConsultation"></table>
+ 
+					<table id="loadItemMedicalConsultations"
+						class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Diagnostico</th>
+								<th>Tratamiento</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" value="Registrar" class="btn btn-primary" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+	 
+	<script th:replace="medical_consultation/js/autocomplete-medicaldetails :: javascript"></script>
+</body>
+</html>
