@@ -1,18 +1,12 @@
 package com.mitocode.model.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -44,20 +38,19 @@ public class Doctor {
 	@JoinColumn(name = "specialty_id", nullable = false)
 	private Specialty specialty;
 
-	@OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<MedicalConsultation> details;
+	/*
+	 * @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch =
+	 * FetchType.LAZY) private List<MedicalConsultation> details;
+	 */
 
-	public Doctor() {
-		this.details = new ArrayList<>();
-	}
-
-	public List<MedicalConsultation> getDetails() {
-		return details;
-	}
-
-	public void setDetails(List<MedicalConsultation> details) {
-		this.details = details;
-	}
+	/*
+	 * public Doctor() { this.details = new ArrayList<>(); }
+	 * 
+	 * public List<MedicalConsultation> getDetails() { return details; }
+	 * 
+	 * public void setDetails(List<MedicalConsultation> details) { this.details =
+	 * details; }
+	 */
 
 	public Long getId() {
 		return id;
@@ -107,8 +100,9 @@ public class Doctor {
 		this.specialty = specialty;
 	}
 	
-	public void addMedicalConsultation(MedicalConsultation details) {
-		this.details.add(details);
-	}
+	/*
+	 * public void addMedicalConsultation(MedicalConsultation details) {
+	 * this.details.add(details); }
+	 */
 
 }

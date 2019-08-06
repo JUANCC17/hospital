@@ -1,16 +1,10 @@
 package com.mitocode.model.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -39,12 +33,12 @@ public class Patient {
 	@Column(name = "number_clinical_history")
 	private String numberClinicalHistory;
 
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<MedicalConsultation> medicalDetails;
-
-	public Patient() {
-		this.medicalDetails = new ArrayList<>();
-	}
+	/*
+	 * @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch =
+	 * FetchType.LAZY) private List<MedicalConsultation> medicalDetails;
+	 * 
+	 * public Patient() { this.medicalDetails = new ArrayList<>(); }
+	 */
 
 	public Long getId() {
 		return id;
@@ -86,12 +80,12 @@ public class Patient {
 		this.numberClinicalHistory = numberClinicalHistory;
 	}
 
-	public List<MedicalConsultation> getMedicalDetails() {
-		return medicalDetails;
-	}
-
-	public void setMedicalDetails(List<MedicalConsultation> medicalDetails) {
-		this.medicalDetails = medicalDetails;
-	}
+	/*
+	 * public List<MedicalConsultation> getMedicalDetails() { return medicalDetails;
+	 * }
+	 * 
+	 * public void setMedicalDetails(List<MedicalConsultation> medicalDetails) {
+	 * this.medicalDetails = medicalDetails; }
+	 */
 
 }

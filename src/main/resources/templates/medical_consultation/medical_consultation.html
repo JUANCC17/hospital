@@ -8,12 +8,8 @@
 	<div class="container">
 
 		<div class="card">
-			<div class="card-header text-white bg-dark">Pacientes</div>
+			<div class="card-header text-white bg-dark">Generar Consulta Medica</div>
 			<div class="card-body">
-				<h4 class="card-title">
-					<a th:href="@{/patients/new/}"  class="btn btn-primary btn-xs">Nuevo
-						Paciente</a>
-				</h4>
 
 				<div class="table-responsive">
 					<table class="table table-striped">
@@ -34,8 +30,8 @@
 								<td th:text="${patient.lastName}"></td>
 								<td th:text="${patient.dni}"></td>
 								<td th:text="${patient.numberClinicalHistory}"></td>
-								<td ><a th:href="@{'/patients/edit/' + ${patient.id}}"
-									class="btn btn-primary"> Editar</a></td>
+								<td ><a th:href="@{'/medical_consultations/form/' + ${patient.id}}"
+									class="btn btn-primary"> Generar</a></td>
 						</tbody>
 					</table>
 				</div>
