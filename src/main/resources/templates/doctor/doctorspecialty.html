@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4 ">
+
+		<div class="card bg-light ">
+			<div class="card-header text-white bg-dark" th:text="${title}"></div>
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a th:href="@{/doctors/specialties/list}"
+						class="btn btn-light btn-xs">&laquo; Regresar</a>
+				</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item" th:text="${specialty.name}"></li>
+				</ul>
+			</div>
+
+		</div>
+
+
+		<div class="card bg-light">
+			<div class="card-header text-white bg-dark">Doctores</div>
+			<div class="card-body">
+
+				<div th:if="${#lists.isEmpty(doctors)}"
+					class="alert alert-info my-4"
+					th:text="'La especialidad  ' + ${specialty.name} + ' no tiene facturas'"></div>
+
+				<table th:if="${not #lists.isEmpty(doctors)}"
+					class="table">
+					<thead>
+						<tr>
+							<th>Numero</th>
+							<th>Nombres</th>
+							<th>Apellidos</th>
+							<th>DNI</th>
+							<th>CMP</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="doctor: ${doctors}">
+							<td th:text="${doctor.id}"></td>
+							<td th:text="${doctor.firstName}"></td>
+							<td th:text="${doctor.lastName}"></td>
+							<td th:text="${doctor.dni}"></td>
+							<td th:text="${doctor.cmp}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

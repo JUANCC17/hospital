@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+
+		<div class="card">
+			<div class="card-header text-white bg-dark">Doctores</div>
+			<div class="card-body">
+				<h4 class="card-title">
+					<a th:href="@{/doctors/new/}"  class="btn btn-primary btn-xs">Nuevo
+						Doctor</a>
+				</h4>
+
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Dni</th>
+								<th>CMP</th>
+								<th>Especialidad</th>
+								<th>Opcion</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="doctor:${doctors}">
+								<td th:text="${doctor.id}"></td>
+								<td th:text="${doctor.firstName}"></td>
+								<td th:text="${doctor.lastName}"></td>
+								<td th:text="${doctor.dni}"></td>
+								<td th:text="${doctor.cmp}"></td>
+								<td th:text="${doctor.specialty.name}"></td>
+								<td ><a th:href="@{'/doctors/edit/' + ${doctor.id}}"
+									class="btn btn-primary"> Editar</a></td>
+						</tbody>
+					</table>
+				</div>
+<!-- 				<nav th:replace="paginator/paginator-nav :: paginator"></nav> -->
+			</div>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
