@@ -8,9 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
+import com.mitocode.model.entity.DetailConsultation;
 import com.mitocode.model.entity.Doctor;
 import com.mitocode.model.entity.MedicalConsultation;
 import com.mitocode.model.entity.Patient;
@@ -71,6 +75,42 @@ public class MedicalConsultationController {
 			model.addAttribute("error", e.getMessage());
 		}
 		return "medical_consultation/form";
+	}
+
+	@PostMapping("/save")
+	public String saveMedicalConsultation(MedicalConsultation medicalConsultation, Model model,
+			@RequestParam(name = "diagnostic[]", required = true) String[] diagnostic,
+			@RequestParam(name = "treatment[]", required = true) String[] treatment, SessionStatus status) {
+		try {
+
+			if (diagnostic == null || diagnostic.length == 0) {
+				model.addAttribute("info", "La consulta medica no tiene diagnisticos.");
+				return "medical_consultation/form";
+			}
+
+			if (treatment == null || treatment.length == 0) {
+				model.addAttribute("info", "La consulta medica no tiene tratamientos.");
+				return "medical_consultation/form";
+			}
+
+			for (int i = 0; i < diagnostic.length; i++) {
+
+				DetailConsultation itemLine = new DetailConsultation();
+				itemLine.setDiagnostic(diagnostic[i]);
+				itemLine.setTreatment(treatment[i]);
+				medicalConsultation.addItemConsultation(itemLine);
+
+			}
+
+			medicalConsultationService.saveOrUpdate(medicalConsultation);
+			status.setComplete();
+			model.addAttribute("success", "Consulta Medica Generada");
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+		}
+
+		// return "redirect:/invoices/detail/" + invoice.getCustomer().getId();
+		return "medical_consultation/medical_consultation";
 	}
 
 }

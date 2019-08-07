@@ -4,22 +4,26 @@
 
 	<script type="text/javascript" th:fragment="javascript">
 		$(document).ready(function() {
+			var item = 0;
 			$('#agregarItem').click(function() {
-				/* select : function(event, ui) { */
-									
-									
-					var line = $("#templateItemsMedicalConsultation").html();
-					
-/* 					line = line.replace(/{ID}/g, ui.item.value);
-					line = line.replace(/{NAME}/g, ui.item.label);
-					line = line.replace(/{PRICE}/g, ui.item.price); */
-					
-					$("#loadItemMedicalConsultations tbody").append(line);
+				
+				var line = $("#templateItemsMedicalConsultation").html();
+				
+				item = item + 1;
+				line = line.replace(/{ID}/g, item);
+				
+				$("#loadItemMedicalConsultations tbody").append(line);
 
-					return false;
-				/* } */
+				return false;
 			});
 		});
+		
+		var itemsHelper = {
+				deleteLineMedicalConsultation: function(id){
+					$("#row_" + id).remove();
+				}
+		
+		}
 		
 
 	</script>
