@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4 ">
+
+		<div class="card bg-light ">
+			<div class="card-header text-white bg-dark" th:text="${title}"></div>
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a th:href="@{/medical_consultations/patients/medical_consultation}"
+						class="btn btn-light btn-xs">&laquo; Regresar</a>
+				</h4>
+
+				<ul class="list-group">
+					<li class="list-group-item" th:text="${patient.firstName}"></li>
+					<li class="list-group-item" th:text="${patient.lastName}"></li>
+					<li class="list-group-item" th:text="${patient.dni}"></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="card bg-light">
+			<div class="card-header text-white bg-dark">Consultas Medicas</div>
+			<div class="card-body">
+
+				<div th:if="${#lists.isEmpty(medical_consultations)}"
+					class="alert alert-info my-4"
+					th:text="'El paciente  ' + ${patient.firstName} + ' ' + ${patient.lastName} + ' no tiene consultas medicas.'"></div>
+
+				<table th:if="${not #lists.isEmpty(medical_consultations)}"
+					class="table">
+					<thead>
+						<tr>
+							<th>Numero</th>
+							<th>Fecha</th>
+							<th>Detalle</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="medical_consultation: ${medical_consultations}">
+							<td th:text="${medical_consultation.id}"></td>
+							<td th:text="${medical_consultation.createAt}"></td>
+							<td><a class="btn btn-primary btn-xs"
+								th:href="@{'/medical_consultations/detail/'+ ${medical_consultation.id}}"
+								th:text="'Detalle'"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

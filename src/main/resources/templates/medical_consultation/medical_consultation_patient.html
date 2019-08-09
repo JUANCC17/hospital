@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+
+		<div class="card">
+			<div class="card-header text-white bg-dark">Consultas Medicas por Paciente</div>
+			<div class="card-body">
+
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead class="bg-dark text-white">
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>DNI</th>
+								<th>Historia Clinica </th>
+								<th>Ver</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="patient:${patients}">
+								<td th:text="${patient.id}"></td>
+								<td th:text="${patient.firstName}"></td>
+								<td th:text="${patient.lastName}"></td>
+								<td th:text="${patient.dni}"></td>
+								<td th:text="${patient.numberClinicalHistory}"></td>
+								<td ><a th:href="@{'/medical_consultations/patient/' + ${patient.id}}"
+									class="btn btn-primary"> Detalle</a></td>
+						</tbody>
+					</table>
+				</div>
+<!-- 				<nav th:replace="paginator/paginator-nav :: paginator"></nav> -->
+			</div>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

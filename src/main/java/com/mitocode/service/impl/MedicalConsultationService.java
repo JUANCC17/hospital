@@ -50,4 +50,15 @@ public class MedicalConsultationService implements IMedicalConsultationService {
 		
 	}
 
+	@Override
+	public Optional<MedicalConsultation> findMedicalConsultationByIdWithPatientWithDoctorWithItemMedicalConsultation(
+			Long medicalConsultationId) {
+		return medicalConsultationRepository.findMedicalConsultationByIdWithPatientWithDoctorWithItemMedicalConsultation(medicalConsultationId);
+	}
+
+	@Override
+	public List<MedicalConsultation> findMedicalConsultationsByPatientId(Long patientId) {
+		return medicalConsultationRepository.findMedicalConsultationsByPatientId(patientId);
+	}
+
 }
