@@ -16,7 +16,14 @@
 
 				return false;
 			});
+			
+			$("form").submit(function(){
+				$("#templateItemsMedicalConsultation").remove();
+				return;
+			});
 		});
+		
+		
 		
 		var itemsHelper = {
 				deleteLineMedicalConsultation: function(id){

@@ -23,7 +23,7 @@ import com.mitocode.service.impl.MedicalConsultationService;
 import com.mitocode.service.impl.PatientService;
 
 @Controller
-@SessionAttributes("medicalconsultation")
+@SessionAttributes("medical_consultation")
 @RequestMapping("/medical_consultations")
 public class MedicalConsultationController {
 
@@ -53,8 +53,9 @@ public class MedicalConsultationController {
 	@GetMapping("/form/{patientId}")
 	public String newMedicalConsultation(@PathVariable(value = "patientId") Long patientId, Model model) {
 		try {
-			Optional<Patient> patient = patientService.getOne(patientId);
+
 			List<Doctor> doctors = doctorService.getAll();
+			Optional<Patient> patient = patientService.getOne(patientId);
 
 			if (doctors.size() == 0) {
 				model.addAttribute("info", "No existe doctores registrados.");
@@ -78,18 +79,14 @@ public class MedicalConsultationController {
 	}
 
 	@PostMapping("/save")
-	public String saveMedicalConsultation(MedicalConsultation medicalConsultation, Model model,
+	public String saveMedicalConsultation(MedicalConsultation medical_consultation, Model model,
+			
 			@RequestParam(name = "diagnostic[]", required = true) String[] diagnostic,
 			@RequestParam(name = "treatment[]", required = true) String[] treatment, SessionStatus status) {
 		try {
 
 			if (diagnostic == null || diagnostic.length == 0) {
-				model.addAttribute("info", "La consulta medica no tiene diagnisticos.");
-				return "medical_consultation/form";
-			}
-
-			if (treatment == null || treatment.length == 0) {
-				model.addAttribute("info", "La consulta medica no tiene tratamientos.");
+				model.addAttribute("info", "La consulta medica no tiene diagnosticos.");
 				return "medical_consultation/form";
 			}
 
@@ -98,11 +95,11 @@ public class MedicalConsultationController {
 				DetailConsultation itemLine = new DetailConsultation();
 				itemLine.setDiagnostic(diagnostic[i]);
 				itemLine.setTreatment(treatment[i]);
-				medicalConsultation.addItemConsultation(itemLine);
+				medical_consultation.addItemConsultation(itemLine);
 
 			}
 
-			medicalConsultationService.saveOrUpdate(medicalConsultation);
+			medicalConsultationService.saveOrUpdate(medical_consultation);
 			status.setComplete();
 			model.addAttribute("success", "Consulta Medica Generada");
 		} catch (Exception e) {

@@ -30,12 +30,13 @@ public class MedicalConsultation {
 	private LocalDate createAt;
 	
 	@ManyToOne
+	@JoinColumn(name = "patient_id")
+	private Patient patient;
+	
+	@ManyToOne
 	@JoinColumn(name = "doctor_id", nullable = false)
 	private Doctor doctor;
 	
-	@ManyToOne
-	@JoinColumn(name = "patient_id", nullable = false)
-	private Patient patient;
 
 	@OneToMany(mappedBy = "medicalConsultation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DetailConsultation> items;
@@ -72,7 +73,7 @@ public class MedicalConsultation {
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
-
+	
 	public Patient getPatient() {
 		return patient;
 	}

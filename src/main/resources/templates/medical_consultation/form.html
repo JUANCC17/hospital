@@ -12,42 +12,40 @@
 
 
 				<div class="card-header text-white bg-dark" th:text="${title}"></div>
-				<div class="card-body">
-					<h4 class="card-title">
-						<a class="btn btn-light btn-xs"
-							th:href="@{'/medical_consultations/list/'}"
-							th:text="'&laquo; Regresar'"></a>
-					</h4>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a class="btn btn-light btn-xs"
+								th:href="@{'/medical_consultations/list/'}"
+								th:text="'&laquo; Regresar'"></a>
+						</h4>
+	
+	
 
-
-
-					<div class="form-group row">
-						<label for="patient" class="col-sm-2 col-form-label"
-							th:text="'Paciente'"></label>
-						<div class="col-sm-6">
-							<input name="patient"
-								th:value="${medical_consultation.patient.firstName} + ' ' + ${medical_consultation.patient.lastName}"
-								class="form-control" disabled='disabled' />
+						<div class="form-group row">
+							<label for="patient" class="col-sm-2 col-form-label"
+								th:text="'Paciente'"></label>
+							<div class="col-sm-6">
+								<input name="patient"
+									th:value="${medical_consultation.patient.firstName} + ' ' + ${medical_consultation.patient.lastName}"
+									class="form-control" disabled='disabled' />
+							</div>
 						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label for="" class="col-sm-2 col-form-label">Doctor</label>
-						<div class="col-sm-6">
-							 <select class="browser-default custom-select" th:field="*{doctor.id}">
-		 						<!--  <option th:value="" th:data-hidden="true"></option> -->
-					            <option th:each="doctor: ${doctors}"
-							              th:value="${doctor.id}" 
-							              th:text="${doctor.firstName+' '+doctor.lastName}"
-							              
-							               
-					              />
-					            
-					          </select>
-						</div>
-					</div>
-					
-				 
+							
+						<div class="form-group row">
+							<label for="" class="col-sm-2 col-form-label">Doctor</label>
+							<div class="col-sm-6">
+								 <select class="browser-default custom-select" th:field="*{doctor.id}">
+			 						<!--  <option th:value="" th:data-hidden="true"></option> -->
+						            <option th:each="doctor: ${doctors}"
+								              th:value="${doctor.id}" 
+								              th:text="${doctor.firstName+' '+doctor.lastName}"
+								              
+								               
+						              />
+						            
+						          </select>
+							</div>
+						</div> 
 
 				</div>
 			</div>
