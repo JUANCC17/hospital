@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,7 @@ import com.mitocode.service.impl.SpecialtyService;
 @Controller
 @SessionAttributes("doctor")
 @RequestMapping("/doctors")
-//@Secured("ROLE_ADMIN")
+
 public class DoctorController {
 
 	@Autowired
@@ -37,12 +38,13 @@ public class DoctorController {
 	@Autowired
 	private SpecialtyService specialtyService;
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/list")
 	private String getAllDoctors(Model model) {
 		try {
-			
+
 			Collection<Doctor> doctors = doctorService.findDoctorByIdWithSpecialty();
-			
+
 			model.addAttribute("title", "Doctores");
 			model.addAttribute("doctors", doctors);
 
@@ -53,6 +55,7 @@ public class DoctorController {
 		return "doctor/doctor";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping(value = "/save")
 	public String saveDoctor(@Valid Doctor doctor, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
@@ -68,6 +71,13 @@ public class DoctorController {
 			String mensajeFlash = (doctor.getId() != null) ? "Doctor editado correctamente!"
 					: "Doctor registrado correctamente!";
 
+			if (doctor.getSpecialty().getId() == null || doctor.getSpecialty().getId() == 0) {
+				List<Specialty> specialties = specialtyService.getAll();
+				model.addAttribute("title", "Guardar Doctor");
+				model.addAttribute("specialties", specialties);
+				return "doctor/form";
+			}
+
 			doctorService.saveOrUpdate(doctor);
 			status.setComplete();
 			flash.addFlashAttribute("success", mensajeFlash);
@@ -78,6 +88,7 @@ public class DoctorController {
 		return "redirect:/doctors/list";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/edit/{id}")
 	public String editDoctor(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 
@@ -107,6 +118,7 @@ public class DoctorController {
 		return "doctor/form";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/new")
 	public String newDoctor(Model model) {
 
@@ -117,7 +129,6 @@ public class DoctorController {
 			model.addAttribute("doctor", doctor);
 			model.addAttribute("title", "Nuevo Doctor");
 
-
 			model.addAttribute("specialties", specialties);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,8 +136,8 @@ public class DoctorController {
 
 		return "doctor/form";
 	}
-	
-	@GetMapping(value = "/specialties/list")
+
+	@GetMapping(value = "/specialties")
 	public String getAllSpecialties(Model model) {
 		try {
 			List<Specialty> specialties = specialtyService.getAll();
@@ -142,23 +153,22 @@ public class DoctorController {
 	@GetMapping(value = "/specialty/{id}")
 	public String doctorsBySpeciality(@PathVariable(value = "id") Long specialtyId, Model model,
 			RedirectAttributes flash) {
-		
+
 		Optional<Specialty> specialty;
 		List<Doctor> doctors = new ArrayList<>();
-		
+
 		try {
 			specialty = specialtyService.getOne(specialtyId);
-			
+
 			if (!specialty.isPresent()) {
 				flash.addFlashAttribute("error", "La especialidad no existe");
 				return "redirect:/doctors/specialties/list";
-			}else {
-				doctors=doctorService.findDoctorsBySpecialtyId(specialtyId);
-				model.addAttribute("specialty",specialty.get());
-				model.addAttribute("doctors",doctors);
+			} else {
+				doctors = doctorService.findDoctorsBySpecialtyId(specialtyId);
+				model.addAttribute("specialty", specialty.get());
+				model.addAttribute("doctors", doctors);
 				model.addAttribute("title", "Especialidad");
 			}
-		
 
 		} catch (Exception e) {
 			e.printStackTrace();
