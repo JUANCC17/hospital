@@ -3,6 +3,8 @@ package com.mitocode.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,7 @@ public class SpecialtyService implements ISpecialtyService {
 
 	@Override
 	public List<Specialty> getAll() throws Exception {
-		return (List<Specialty>) specialtyRepository.findAll();
+		return specialtyRepository.findAll();
 	}
 
 	@Override
@@ -30,6 +32,7 @@ public class SpecialtyService implements ISpecialtyService {
 	}
 
 	@Override
+	@Transactional
 	public Specialty saveOrUpdate(Specialty entity) throws Exception {
 		return specialtyRepository.save(entity);
 	}
@@ -40,6 +43,7 @@ public class SpecialtyService implements ISpecialtyService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) throws Exception {
 		specialtyRepository.deleteById(id);
 

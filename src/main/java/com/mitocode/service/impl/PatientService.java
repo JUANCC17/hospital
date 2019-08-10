@@ -3,6 +3,8 @@ package com.mitocode.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,7 @@ public class PatientService implements IPatientService {
 
 	@Override
 	public List<Patient> getAll() throws Exception {
-		return (List<Patient>) patientRepository.findAll();
+		return patientRepository.findAll();
 	}
 
 	@Override
@@ -30,6 +32,7 @@ public class PatientService implements IPatientService {
 	}
 
 	@Override
+	@Transactional
 	public Patient saveOrUpdate(Patient entity) throws Exception {
 		return patientRepository.save(entity);
 	}
@@ -40,6 +43,7 @@ public class PatientService implements IPatientService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) throws Exception {
 		patientRepository.deleteById(id);
 

@@ -24,12 +24,13 @@ import com.mitocode.service.impl.PatientService;
 @Controller
 @SessionAttributes("patient")
 @RequestMapping("/patients")
-@Secured("ROLE_ADMIN")
+
 public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-
+	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/list")
 	public String getAllPatients(Model model) {
 		try {
@@ -46,6 +47,7 @@ public class PatientController {
 		return "patient/patient";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping(value = "/save")
 	public String savePatient(@Valid Patient patient, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
@@ -69,6 +71,7 @@ public class PatientController {
 		return "redirect:/patients/list";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/edit/{id}")
 	public String editPatient(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 
@@ -94,6 +97,7 @@ public class PatientController {
 		return "patient/form";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/new")
 	public String newPatient(Model model) {
 
@@ -101,6 +105,20 @@ public class PatientController {
 		model.addAttribute("patient", patient);
 		model.addAttribute("title", "Nuevo Paciente");
 		return "patient/form";
+	}
+	
+	@GetMapping(value = "/historiaclinica")
+	public String medicalConsultationsPatient(Model model) {
+		try {
+			List<Patient> patients = patientService.getAll();
+			
+			model.addAttribute("title","Pacientes");
+			model.addAttribute("patients",patients);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "patient/historiaclinica";
 	}
 
 }

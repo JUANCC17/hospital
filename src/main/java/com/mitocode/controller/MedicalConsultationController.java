@@ -176,5 +176,6 @@ public class MedicalConsultationController {
 
 		return "medical_consultation/medical_consultation_patient_details";
 	}
+	
 
 }

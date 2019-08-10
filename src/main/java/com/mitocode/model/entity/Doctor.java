@@ -99,7 +99,7 @@ public class Doctor {
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
 	}
-	
+
 	/*
 	 * public void addMedicalConsultation(MedicalConsultation details) {
 	 * this.details.add(details); }

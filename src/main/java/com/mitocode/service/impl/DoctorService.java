@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +20,10 @@ public class DoctorService implements IDoctorService {
 
 	@Autowired
 	private DoctorRepository doctorRepository;
-	
+
 	@Override
 	public List<Doctor> getAll() throws Exception {
-		return (List<Doctor>) doctorRepository.findAll() ;
+		return doctorRepository.findAll();
 	}
 
 	@Override
@@ -31,6 +33,7 @@ public class DoctorService implements IDoctorService {
 	}
 
 	@Override
+	@Transactional
 	public Doctor saveOrUpdate(Doctor entity) throws Exception {
 		return doctorRepository.save(entity);
 	}
@@ -41,15 +44,10 @@ public class DoctorService implements IDoctorService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) throws Exception {
 		doctorRepository.deleteById(id);
-		
-	}
 
-	@Override
-	public Collection<Doctor> findDoctorByIdWithSpecialty() {
-		
-		return doctorRepository.findDoctorByIdWithSpecialty();
 	}
 
 	@Override
@@ -57,10 +55,9 @@ public class DoctorService implements IDoctorService {
 		return doctorRepository.findDoctorsBySpecialtyId(specialtyId);
 	}
 
-
-
-
-
-
+	@Override
+	public Collection<Doctor> findDoctorByIdWithSpecialty() {
+		return doctorRepository.findDoctorByIdWithSpecialty();
+	}
 
 }

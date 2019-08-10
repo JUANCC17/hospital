@@ -8,8 +8,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-//import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,13 +30,12 @@ import com.mitocode.service.impl.SpecialtyService;
 
 public class DoctorController {
 
-	@Autowired
+	@Autowired(required = true)
 	private DoctorService doctorService;
 
-	@Autowired
+	@Autowired(required = true)
 	private SpecialtyService specialtyService;
 
-	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/list")
 	private String getAllDoctors(Model model) {
 		try {
@@ -49,13 +46,12 @@ public class DoctorController {
 			model.addAttribute("doctors", doctors);
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		return "doctor/doctor";
 	}
 
-	@Secured("ROLE_ADMIN")
 	@PostMapping(value = "/save")
 	public String saveDoctor(@Valid Doctor doctor, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
@@ -88,7 +84,6 @@ public class DoctorController {
 		return "redirect:/doctors/list";
 	}
 
-	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/edit/{id}")
 	public String editDoctor(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 
@@ -118,7 +113,6 @@ public class DoctorController {
 		return "doctor/form";
 	}
 
-	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/new")
 	public String newDoctor(Model model) {
 
