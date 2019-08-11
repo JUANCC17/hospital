@@ -16,8 +16,7 @@
 						<thead class="bg-dark text-white">
 							<tr>
 								<th>Id</th>
-								<th>Nombre</th>
-								<th>Apellido</th>
+								<th>Paciente</th>
 								<th>DNI</th>
 								<th>Historia Clinica </th>
 								<th>Ver</th>
@@ -26,8 +25,7 @@
 						<tbody>
 							<tr th:each="patient:${patients}">
 								<td th:text="${patient.id}"></td>
-								<td th:text="${patient.firstName}"></td>
-								<td th:text="${patient.lastName}"></td>
+								<td th:text="${patient.firstName}+' '+${patient.lastName}"></td>
 								<td th:text="${patient.dni}"></td>
 								<td th:text="${patient.numberClinicalHistory}"></td>
 								<td ><a th:href="@{'/medical_consultations/patient/' + ${patient.id}}"

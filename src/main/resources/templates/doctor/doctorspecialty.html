@@ -30,7 +30,7 @@
 
 				<div th:if="${#lists.isEmpty(doctors)}"
 					class="alert alert-info my-4"
-					th:text="'La especialidad  ' + ${specialty.name} + ' no tiene facturas'"></div>
+					th:text="'La especialidad  ' + ${specialty.name} + ' no tiene doctores registrados'"></div>
 
 				<table th:if="${not #lists.isEmpty(doctors)}"
 					class="table">
