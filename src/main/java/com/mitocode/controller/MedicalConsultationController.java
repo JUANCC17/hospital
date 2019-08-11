@@ -1,5 +1,6 @@
 package com.mitocode.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import com.mitocode.model.entity.DetailConsultation;
 import com.mitocode.model.entity.Doctor;
 import com.mitocode.model.entity.MedicalConsultation;
 import com.mitocode.model.entity.Patient;
+import com.mitocode.model.repository.UserRepository;
 import com.mitocode.service.impl.DoctorService;
 import com.mitocode.service.impl.MedicalConsultationService;
 import com.mitocode.service.impl.PatientService;
@@ -31,13 +33,16 @@ import com.mitocode.service.impl.PatientService;
 public class MedicalConsultationController {
 
 	@Autowired
-	private MedicalConsultationService medicalConsultationService;
-
-	@Autowired
 	private PatientService patientService;
 
 	@Autowired
 	private DoctorService doctorService;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private MedicalConsultationService medicalConsultationService;
 
 	@GetMapping(value = "/list")
 	public String getAllPatient(Model model) {
@@ -52,7 +57,7 @@ public class MedicalConsultationController {
 
 		return "medical_consultation/medical_consultation";
 	}
-	
+
 	@GetMapping(value = "/patients/medical_consultation")
 	public String getAllPatientMedicalConsultation(Model model) {
 		try {
@@ -60,8 +65,7 @@ public class MedicalConsultationController {
 
 			model.addAttribute("title", "Pacientes");
 			model.addAttribute("patients", patients);
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,33 +74,37 @@ public class MedicalConsultationController {
 	}
 
 	@GetMapping("/form/{patientId}")
-	public String newMedicalConsultation(@PathVariable(value = "patientId") Long patientId, Model model) {
+	public String newMedicalConsultation(@PathVariable(value = "patientId") Long patientId, Model model,
+			Principal principal) {
 		try {
 
-			List<Doctor> doctors = doctorService.getAll();
 			Optional<Patient> patient = patientService.getOne(patientId);
 
-			if (doctors.size() == 0) {
-				model.addAttribute("info", "No existe doctores registrados.");
+			String username = principal.getName();
+			Long doctorId = userRepository.findByUserName(username).getId();
+			Optional<Doctor> doctor = doctorService.getOne(doctorId);
+
+			if (!doctor.isPresent()) {
+				model.addAttribute("info", "Doctor no existe");
+				return "redirect:/medical_consultations/list";
+			}
+
+			if (!patient.isPresent()) {
+				model.addAttribute("info", "Paciente no existe");
 				return "redirect:/medical_consultations/list";
 			} else {
-				if (!patient.isPresent()) {
-					model.addAttribute("info", "Paciente no existe");
-					return "redirect:/medical_consultations/list";
-				} else {
-					MedicalConsultation medical_consultation = new MedicalConsultation();
-					medical_consultation.setPatient(patient.get());
-					model.addAttribute("medical_consultation", medical_consultation);
-					model.addAttribute("doctors", doctors);
-					model.addAttribute("title", "Consulta Medica");
-				}
+				MedicalConsultation medical_consultation = new MedicalConsultation();
+				medical_consultation.setPatient(patient.get());
+				medical_consultation.setDoctor(doctor.get());
+				model.addAttribute("medical_consultation", medical_consultation);
+				model.addAttribute("title", "Consulta Medica");
 			}
+
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 		}
 		return "medical_consultation/form";
 	}
-
 
 	@PostMapping("/save")
 	public String saveMedicalConsultation(MedicalConsultation medical_consultation, Model model,
@@ -149,7 +157,7 @@ public class MedicalConsultationController {
 
 		return "medical_consultation/detail_medical_consultation";
 	}
-	
+
 	@GetMapping(value = "/patient/{id}")
 	public String medicalConsultationByPatient(@PathVariable(value = "id") Long patientId, Model model,
 			RedirectAttributes flash) {
@@ -163,12 +171,12 @@ public class MedicalConsultationController {
 				flash.addFlashAttribute("error", "El paciente no existe");
 				return "redirect:/medical_consultations/list";
 			} else {
-				
-				  medical_consultations = medicalConsultationService.findMedicalConsultationsByPatientId(patientId);
-				  model.addAttribute("patient", patient.get());
-				  model.addAttribute("medical_consultations", medical_consultations);
-				  model.addAttribute("title", "Paciente");
-				 
+
+				medical_consultations = medicalConsultationService.findMedicalConsultationsByPatientId(patientId);
+				model.addAttribute("patient", patient.get());
+				model.addAttribute("medical_consultations", medical_consultations);
+				model.addAttribute("title", "Paciente");
+
 			}
 
 		} catch (Exception e) {
@@ -178,8 +186,5 @@ public class MedicalConsultationController {
 
 		return "medical_consultation/medical_consultation_patient_details";
 	}
-	
-
-	
 
 }
