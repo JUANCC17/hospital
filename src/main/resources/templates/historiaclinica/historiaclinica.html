@@ -8,16 +8,15 @@
 	<div class="container">
 
 		<div class="card">
-			<div class="card-header text-white bg-info">Pacientes</div>
+			<div class="card-header text-white bg-dark">Historia Clinica por Paciente</div>
 			<div class="card-body">
 			
 				<div class="table-responsive">
 					<table class="table table-striped">
-						<thead class="bg-info text-white">
+						<thead class="bg-dark text-white">
 							<tr>
 								<th>Id</th>
-								<th>Nombre</th>
-								<th>Apellido</th>
+								<th>Paciente</th>
 								<th>DNI</th>
 								<th>Historia Clinica </th>
 								<th>Opcion</th>
@@ -26,12 +25,11 @@
 						<tbody>
 							<tr th:each="patient:${patients}">
 								<td th:text="${patient.id}"></td>
-								<td th:text="${patient.firstName}"></td>
-								<td th:text="${patient.lastName}"></td>
+								<td th:text="${patient.firstName} +' '+ ${patient.lastName}"></td>
 								<td th:text="${patient.dni}"></td>
 								<td th:text="${patient.numberClinicalHistory}"></td>
-								<td ><a th:href="@{'/patients/historiaclinica/patient/' + ${patient.id}}"
-									class="btn btn-dark"> Ver Historia</a></td>
+								<td ><a th:href="@{'/historiasclinicas/patient/' + ${patient.id}}"
+									class="btn btn-primary"> Ver Historia</a></td>
 						</tbody>
 					</table>
 				</div>

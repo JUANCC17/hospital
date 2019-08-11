@@ -10,4 +10,6 @@ public interface IMedicalConsultationService extends CrudService<MedicalConsulta
 	Optional<MedicalConsultation> findMedicalConsultationByIdWithPatientWithDoctorWithItemMedicalConsultation(Long medicalConsultationId);
 	
 	List<MedicalConsultation> findMedicalConsultationsByPatientId(Long patientId);
+	
+	List<MedicalConsultation> findHistoriaClinicaByPatientId(Long patientId);
 }

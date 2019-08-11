@@ -27,6 +27,7 @@ import com.mitocode.service.impl.PatientService;
 @Controller
 @SessionAttributes("medical_consultation")
 @RequestMapping("/medical_consultations")
+
 public class MedicalConsultationController {
 
 	@Autowired
@@ -96,6 +97,7 @@ public class MedicalConsultationController {
 		return "medical_consultation/form";
 	}
 
+
 	@PostMapping("/save")
 	public String saveMedicalConsultation(MedicalConsultation medical_consultation, Model model,
 			@RequestParam(name = "diagnostic[]", required = true) String[] diagnostic,
@@ -124,7 +126,7 @@ public class MedicalConsultationController {
 		}
 
 		return "redirect:/medical_consultations/detail/" + medical_consultation.getId();
-		// return "medical_consultation/medical_consultation/list";
+
 	}
 
 	@GetMapping("/detail/{id}")
@@ -176,6 +178,8 @@ public class MedicalConsultationController {
 
 		return "medical_consultation/medical_consultation_patient_details";
 	}
+	
+
 	
 
 }

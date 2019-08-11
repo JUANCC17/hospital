@@ -29,7 +29,7 @@ public class PatientController {
 
 	@Autowired
 	private PatientService patientService;
-	
+
 	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/list")
 	public String getAllPatients(Model model) {
@@ -96,7 +96,7 @@ public class PatientController {
 
 		return "patient/form";
 	}
-	
+
 	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/new")
 	public String newPatient(Model model) {
@@ -106,19 +106,7 @@ public class PatientController {
 		model.addAttribute("title", "Nuevo Paciente");
 		return "patient/form";
 	}
-	
-	@GetMapping(value = "/historiaclinica")
-	public String medicalConsultationsPatient(Model model) {
-		try {
-			List<Patient> patients = patientService.getAll();
-			
-			model.addAttribute("title","Pacientes");
-			model.addAttribute("patients",patients);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "patient/historiaclinica";
-	}
+
+
 
 }

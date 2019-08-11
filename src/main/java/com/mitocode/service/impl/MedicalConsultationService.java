@@ -61,4 +61,13 @@ public class MedicalConsultationService implements IMedicalConsultationService {
 		return medicalConsultationRepository.findMedicalConsultationsByPatientId(patientId);
 	}
 
+	@Override
+	public List<MedicalConsultation> findHistoriaClinicaByPatientId(Long patientId) {
+		return medicalConsultationRepository.findHistoriaClinicaByPatientId(patientId);
+	}
+
+
+
+
+
 }
