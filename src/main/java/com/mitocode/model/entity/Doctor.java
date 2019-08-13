@@ -38,19 +38,6 @@ public class Doctor {
 	@JoinColumn(name = "specialty_id", nullable = false)
 	private Specialty specialty;
 
-	/*
-	 * @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch =
-	 * FetchType.LAZY) private List<MedicalConsultation> details;
-	 */
-
-	/*
-	 * public Doctor() { this.details = new ArrayList<>(); }
-	 * 
-	 * public List<MedicalConsultation> getDetails() { return details; }
-	 * 
-	 * public void setDetails(List<MedicalConsultation> details) { this.details =
-	 * details; }
-	 */
 
 	public Long getId() {
 		return id;
@@ -100,9 +87,5 @@ public class Doctor {
 		this.specialty = specialty;
 	}
 
-	/*
-	 * public void addMedicalConsultation(MedicalConsultation details) {
-	 * this.details.add(details); }
-	 */
 
 }

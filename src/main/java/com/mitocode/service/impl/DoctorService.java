@@ -1,6 +1,5 @@
 package com.mitocode.service.impl;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,8 +55,10 @@ public class DoctorService implements IDoctorService {
 	}
 
 	@Override
-	public Collection<Doctor> findDoctorByIdWithSpecialty() {
+	public List<Doctor> findDoctorByIdWithSpecialty() {
 		return doctorRepository.findDoctorByIdWithSpecialty();
 	}
+
+
 
 }

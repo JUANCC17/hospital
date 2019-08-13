@@ -1,13 +1,13 @@
 package com.mitocode.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,18 +29,16 @@ import com.mitocode.service.impl.SpecialtyService;
 @RequestMapping("/doctors")
 
 public class DoctorController {
-
-	@Autowired(required = true)
-	private DoctorService doctorService;
-
-	@Autowired(required = true)
+	@Autowired
 	private SpecialtyService specialtyService;
+
+	@Autowired
+	private DoctorService doctorService;
 
 	@GetMapping(value = "/list")
 	private String getAllDoctors(Model model) {
 		try {
-
-			Collection<Doctor> doctors = doctorService.findDoctorByIdWithSpecialty();
+			List<Doctor> doctors = doctorService.findDoctorByIdWithSpecialty();
 
 			model.addAttribute("title", "Doctores");
 			model.addAttribute("doctors", doctors);
