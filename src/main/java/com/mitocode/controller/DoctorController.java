@@ -7,7 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,8 +35,9 @@ public class DoctorController {
 	@Autowired
 	private DoctorService doctorService;
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/list")
-	private String getAllDoctors(Model model) {
+	public String getAllDoctors(Model model) {
 		try {
 			List<Doctor> doctors = doctorService.findDoctorByIdWithSpecialty();
 
@@ -50,6 +51,7 @@ public class DoctorController {
 		return "doctor/doctor";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping(value = "/save")
 	public String saveDoctor(@Valid Doctor doctor, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
@@ -82,6 +84,7 @@ public class DoctorController {
 		return "redirect:/doctors/list";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/edit/{id}")
 	public String editDoctor(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 
@@ -111,6 +114,7 @@ public class DoctorController {
 		return "doctor/form";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/new")
 	public String newDoctor(Model model) {
 
