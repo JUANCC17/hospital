@@ -63,7 +63,7 @@
 						<label for="" class="col-sm-2 col-form-label">Especialidad</label>
 						<div class="col-sm-6">
 							 <select class="browser-default custom-select" th:field="*{specialty.id}">
-		 						<!--  <option th:value="" th:data-hidden="true"></option> -->
+		 						<option th:value="0">--</option>
 					            <option th:each="specialty: ${specialties}"
 							              th:value="${specialty.id}" 
 							              th:text="${specialty.name}"

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mitocode.model.entity.Specialty;
@@ -22,7 +23,7 @@ public class SpecialtyService implements ISpecialtyService {
 
 	@Override
 	public List<Specialty> getAll() throws Exception {
-		return specialtyRepository.findAll();
+		return specialtyRepository.findAll(Sort.by(Sort.Direction.ASC,"id"));
 	}
 
 	@Override

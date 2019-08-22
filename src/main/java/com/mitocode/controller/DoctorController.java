@@ -57,8 +57,9 @@ public class DoctorController {
 			SessionStatus status) {
 
 		try {
+			List<Specialty> specialties = specialtyService.getAll();
+
 			if (result.hasErrors()) {
-				List<Specialty> specialties = specialtyService.getAll();
 				model.addAttribute("title", "Guardar Doctor");
 				model.addAttribute("specialties", specialties);
 				return "doctor/form";
@@ -68,7 +69,6 @@ public class DoctorController {
 					: "Doctor registrado correctamente!";
 
 			if (doctor.getSpecialty().getId() == null || doctor.getSpecialty().getId() == 0) {
-				List<Specialty> specialties = specialtyService.getAll();
 				model.addAttribute("title", "Guardar Doctor");
 				model.addAttribute("specialties", specialties);
 				return "doctor/form";
@@ -91,6 +91,7 @@ public class DoctorController {
 		Optional<Doctor> doctor = null;
 
 		try {
+			List<Specialty> specialties = specialtyService.getAll();
 			if (id > 0) {
 				doctor = doctorService.getOne(id);
 				if (!doctor.isPresent()) {
@@ -101,10 +102,8 @@ public class DoctorController {
 				flash.addFlashAttribute("error", "El codigo del doctor no puede ser cero");
 				return "redirect:/doctors/list";
 			}
-			model.addAttribute("doctor", doctor);
 			model.addAttribute("title", "Editar Doctor");
-
-			List<Specialty> specialties = specialtyService.getAll();
+			model.addAttribute("doctor", doctor);		
 			model.addAttribute("specialties", specialties);
 
 		} catch (Exception e) {
@@ -122,9 +121,9 @@ public class DoctorController {
 			List<Specialty> specialties = specialtyService.getAll();
 
 			Doctor doctor = new Doctor();
-			model.addAttribute("doctor", doctor);
+			
 			model.addAttribute("title", "Nuevo Doctor");
-
+			model.addAttribute("doctor", doctor);
 			model.addAttribute("specialties", specialties);
 		} catch (Exception e) {
 			e.printStackTrace();
