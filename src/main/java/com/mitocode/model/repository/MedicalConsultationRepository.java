@@ -17,7 +17,7 @@ public interface MedicalConsultationRepository extends JpaRepository<MedicalCons
 	@Query(value = "SELECT * FROM medical_consultations m WHERE m.patient_id = ?1",nativeQuery = true)
 	List<MedicalConsultation> findMedicalConsultationsByPatientId(Long patientId);
 	
-	@Query(value = "SELECT * FROM medical_consultations mc JOIN patients p on mc.patient_id = p.id JOIN details_consultation dc on dc.medicalconsultation_id = mc.id WHERE mc.patient_id = ?1",nativeQuery = true)
+	@Query(value = "SELECT * FROM medical_consultations mc WHERE mc.patient_id = ?1",nativeQuery = true)
 	List<MedicalConsultation> findHistoriaClinicaByPatientId(Long patientId);
 	
 }

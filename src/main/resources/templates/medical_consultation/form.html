@@ -31,6 +31,18 @@
 						</div>
 
 						<input type="hidden" th:field="*{patient.id}" />
+					</div>
+
+					<div class="form-group row">
+
+						<label for="doctor" class="col-sm-2 col-form-label"
+							th:text="'Doctor'"></label>
+						<div class="col-sm-6">
+							<input name="patient"
+								th:value="${medical_consultation.doctor.firstName} + ' ' + ${medical_consultation.doctor.lastName}"
+								class="form-control" disabled='disabled' />
+						</div>
+
 						<input type="hidden" th:field="*{doctor.id}" />
 					</div>
 

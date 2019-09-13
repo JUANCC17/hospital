@@ -75,7 +75,7 @@ public class MedicalConsultationController {
 
 	@GetMapping("/form/{patientId}")
 	public String newMedicalConsultation(@PathVariable(value = "patientId") Long patientId, Model model,
-			Principal principal) {
+			Principal principal, RedirectAttributes flash) {
 		try {
 
 			Optional<Patient> patient = patientService.getOne(patientId);

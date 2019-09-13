@@ -14,53 +14,53 @@
 
 
 				<h4 class="card-title">
-					<a th:href="@{'/patients/historiaclinica'"
+					<a th:href="@{'/historiasclinicas/list'}"
 						class="btn btn-light btn-xs">&laquo; Regresar</a>
 				</h4>
 
 				<ul class="list-group my-2">
 					<li class="list-group-item list-group-item-primary"
 						th:text="'Paciente'"></li>
-					<li class="list-group-item" th:text="${historiaclinica.patient.firstName}+ ' ' +  ${historiaclinica.patient.lastName} "></li>
-					<li class="list-group-item" th:text="${historiaclinica.patient.dni}"></li>
+					<li class="list-group-item"
+						th:text="${patient.firstName}+ ' ' +  ${patient.lastName} "></li>
+					<li class="list-group-item" th:text="${patient.dni}"></li>
+					<li class="list-group-item"
+						th:text="${patient.numberClinicalHistory}"></li>
 				</ul>
-				
-				<!-- <ul class="list-group my-2">
-					<li class="list-group-item list-group-item-warning"
-						th:text="'Doctor'"></li>
-					<li class="list-group-item" th:text="${medical_consultation.doctor.firstName}+ ' ' +  ${medical_consultation.doctor.lastName} "></li>
-					<li class="list-group-item" th:text="${medical_consultation.doctor.dni}"></li>
-				</ul> -->
 
-				<ul class="list-group my-2">
+
+				<!-- <ul class="list-group my-2">
 					<li class="list-group-item list-group-item-success"
 						th:text="'Consulta Medica'"></li>
 					<li class="list-group-item" th:text="'Numero ' + ${historiaclinica.id}"></li>
 					<li class="list-group-item"
 						th:text="'Fecha ' + ${historiaclinica.createAt}"></li>
-				</ul>
-				
-				<!-- <table th:if="${not #lists.isEmpty(historiaclinica.items)}"
-					class="table table-striped table-hover table-bordered my-3">
-					<thead>
+				</ul> -->
+
+				<table th:if="${not #lists.isEmpty(historiaclinica)}" class="table">
+					<thead class="thead-dark">
 						<tr>
-							<th>Diagnostico</th>
-							<th>Tratamiento</th>
+							<th>ID CONSULTA MEDICA</th>
+							<th>FECHA DE CONSULTA</th>
+							<th>Ver Detalle</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="line: ${historiaclinica.items}">
-							<td th:text="${line.diagnostic}"></td>
-							<td th:text="${line.treatment}"></td>
+						<tr th:each="historia: ${historiaclinica}">
+							<td th:text="${historia.id}"></td>
+							<td th:text="${historia.createAt}"></td>
+							<td><a class="btn btn-secondary btn-xs"
+								th:href="@{'/historiasclinicas/detail/'+ ${historia.id}}"
+								th:text="'Detalle'"></a></td>
 						</tr>
 					</tbody>
 
 				</table>
 
-		
-				<a th:href="@{'/medical_consultations/patient/' + ${medical_consultation.patient.id}}"
-						class="btn btn-light btn-xs">&laquo; Regresar</a> -->
-
+				<h4 class="card-title">
+					<a th:href="@{'/historiasclinicas/list'}"
+						class="btn btn-light btn-xs">&laquo; Regresar</a>
+				</h4>
 			</div>
 		</div>
 

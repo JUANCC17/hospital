@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+
+		<div class="card bg-light">
+			<div class="card-header text-white bg-dark" th:text="${title}"></div>
+			<div class="card-body">
+
+
+				<h4 class="card-title">
+					<a th:href="@{'/historiasclinicas/patient/' + ${medical_consultation.patient.id}}"
+						class="btn btn-light btn-xs">&laquo; Regresar</a>
+				</h4>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-primary"
+						th:text="'Paciente'"></li>
+					<li class="list-group-item" th:text="${medical_consultation.patient.firstName}+ ' ' +  ${medical_consultation.patient.lastName} "></li>
+					<li class="list-group-item" th:text="${medical_consultation.patient.dni}"></li>
+				</ul>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-success"
+						th:text="'Consulta Medica'"></li>
+					<li class="list-group-item" th:text="'Numero ' + ${medical_consultation.id}"></li>
+					<li class="list-group-item"
+						th:text="'Fecha ' + ${medical_consultation.createAt}"></li>
+				</ul>
+				
+				<table th:if="${not #lists.isEmpty(medical_consultation.items)}"
+					class="table table-striped table-hover table-bordered my-3">
+					<thead>
+						<tr>
+							<th>Diagnostico</th>
+							<th>Tratamiento</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="line: ${medical_consultation.items}">
+							<td th:text="${line.diagnostic}"></td>
+							<td th:text="${line.treatment}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+		
+				<a th:href="@{'/historiasclinicas/patient/' + ${medical_consultation.patient.id}}"
+						class="btn btn-light btn-xs">&laquo; Regresar</a>
+
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

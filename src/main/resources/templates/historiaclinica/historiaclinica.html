@@ -28,7 +28,7 @@
 								<td th:text="${patient.firstName} +' '+ ${patient.lastName}"></td>
 								<td th:text="${patient.dni}"></td>
 								<td th:text="${patient.numberClinicalHistory}"></td>
-								<td ><a th:href="@{'/historiasclinicas/patient/' + ${patient.id}}"
+								<td ><a th:href="@{'patient/' + ${patient.id}}"
 									class="btn btn-primary"> Ver Historia</a></td>
 						</tbody>
 					</table>
